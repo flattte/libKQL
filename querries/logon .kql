@@ -1,0 +1,18 @@
+let window = 10m;
+let realise = (tableName:string){
+table(tableName) 
+| where ResultType in ("0", "50125", "50140")
+| project SuccessLogonTime = TimeGenerated, UserPrincipalName, SuccessIPAddress = IPAddress, Type
+| join kind=inner (
+    table(tableName)
+    | where ResultType !in ("0", "50125", "50140")
+    | project FailedLogonTime = TimeGenerated, UserPrincipalName, FailedIPAddress = IPAddress, AppDisplayName, ResultType, ResultDescription, Type
+) on UserPrincipalName 
+| where SuccessLogonTime < FailedLogonTime and FailedLogonTime - SuccessLogonTime <= window
+| summarize FailedLogonTime = max(FailedLogonTime), SuccessLogonTime = max(SuccessLogonTime),
+    FailureCount = countif(ResultType !in ("0", "50125", "50140"))
+    by UserPrincipalName
+| extend timestamp = SuccessLogonTime
+};
+let alert = realise("SigninLogs");
+alert

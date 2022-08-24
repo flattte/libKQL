@@ -1,0 +1,13 @@
+DeviceEvents
+| where ActionType !in (
+    "DpapiAccessed", "NamedPipeEvent",
+    "NtAllocateVirtualMemoryRemoteApiCall",
+    "ProcessPrimaryTokenModified", "NtProtectVirtualMemoryApiCall",
+    "ProcessCreatedUsingWmiQuery", "PnpDeviceConnected",
+    "ScheduledTaskUpdated", "LdapSearch"
+    )
+
+DeviceEvents
+| where ActionType in (
+    "SensitiveFileRead"
+)

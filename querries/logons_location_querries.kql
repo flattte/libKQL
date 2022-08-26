@@ -1,0 +1,15 @@
+//map
+union AADNonInteractiveUserSignInLogs, SigninLogs 
+| where TimeGenerated >= ago(1d)
+| extend Country=tostring(parse_json(LocationDetails_string).countryOrRegion)
+| where isnotempty(Country)
+| summarize Logins=count() by Country
+
+//table
+union AADNonInteractiveUserSignInLogs, SigninLogs 
+| where TimeGenerated >= ago(1d)
+| extend City=iff(isempty(tostring(parse_json(LocationDetails_string).city)),
+    "Unknown",
+    tostring(parse_json(LocationDetails_string).city))
+| summarize Logins=count() by City
+| render barchart

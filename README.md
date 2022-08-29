@@ -7,10 +7,10 @@ monkaS (ʘ ʖ̯ ʘ)
 KQL queries library used to implement rules.
 
 
-OG sentinel querries
+OG sentinel queries
 - https://github.com/Azure/Azure-Sentinel/tree/master/Detections
 
-GoodQueries
+TH Querries
 - https://github.com/RoqueNight/DefenderATP-Proactive-Threat-Hunting-Queries-KQL
 
 Windows Defender Codes

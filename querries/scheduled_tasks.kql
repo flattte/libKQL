@@ -1,0 +1,3 @@
+DeviceProcessEvents 
+| where TimeGenerated > ago(7d)
+| where FolderPath endswith "\\schtasks.exe" and ProcessCommandLine has " /create " and AccountName != "system"

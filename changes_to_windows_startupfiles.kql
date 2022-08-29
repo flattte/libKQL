@@ -1,0 +1,5 @@
+DeviceFileEvents  
+| where TimeGenerated > ago(7d)
+| where FolderPath has @"\Windows\Start Menu\Programs\Startup\"
+| project TimeGenerated, DeviceName, FolderPath, FileName 
+| top 100 by TimeGenerated

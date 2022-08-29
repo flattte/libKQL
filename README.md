@@ -1,5 +1,9 @@
 # libKQL
 
+```
+monkaS (ʘ ʖ̯ ʘ)
+```
+
 KQL queries library used to implement rules.
 
 
@@ -11,6 +15,7 @@ GoodQueries
 
 Windows Defender Codes
 - https://docs.microsoft.com/en-us/microsoft-365/security/defender-endpoint/troubleshoot-microsoft-defender-antivirus?view=o365-worldwide
+
 ```
 monkaS (ʘ ʖ̯ ʘ)
 ```

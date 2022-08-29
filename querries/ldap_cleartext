@@ -1,0 +1,3 @@
+DeviceLogonEvents 
+| where LogonType == "NetworkCleartext"
+| project Timestamp, DeviceName, ActionType, LogonType, AccountName, InitiatingProcessAccountName, InitiatingProcessFolderPath

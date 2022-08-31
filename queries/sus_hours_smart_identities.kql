@@ -1,0 +1,25 @@
+let threshold = 3;
+let today_start = startofday(now());
+let getDayIdentities = (day: datetime){
+    let day_ago_start = startofday(day);
+    union SigninLogs, AADNonInteractiveUserSignInLogs
+        | where TimeGenerated between ((day_ago_start + 1h) .. (day_ago_start + 5h))
+        | summarize max(TimeGenerated) by LocationDetails_string, Identity, UserPrincipalName, IPAddress
+};
+let t = union 
+      getDayIdentities(ago(1d)),
+      getDayIdentities(ago(2d)),
+      getDayIdentities(ago(3d)),
+      getDayIdentities(ago(4d)),
+      getDayIdentities(ago(5d)),
+      getDayIdentities(ago(6d));
+let recognised_identities = 
+t | join kind = innerunique (
+        t | summarize IdCount = count() by IPAddress
+    ) on IPAddress
+    | where IdCount >= threshold;
+// finds today's logons which doesn't match rocognised identities
+union SigninLogs, AADNonInteractiveUserSignInLogs
+    | where TimeGenerated between ((today_start + 1h) .. (today_start + 5h))
+    | summarize max(TimeGenerated) by LocationDetails_string, Identity, UserPrincipalName, IPAddress
+| join kind = leftanti (recognised_identities) on IPAddress, UserPrincipalName

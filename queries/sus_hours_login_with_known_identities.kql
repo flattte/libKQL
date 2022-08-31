@@ -1,0 +1,22 @@
+let today_start    = startofday(now());
+let ago3days_start = startofday(ago(1d));
+let ago2days_start = startofday(ago(2d));
+let ago1days_start = startofday(ago(1d));
+let knownIdentities = 
+union SigninLogs, AADNonInteractiveUserSignInLogs
+    | where TimeGenerated between ((ago1days_start + 1h) .. (ago1days_start + 5h))
+    | summarize max(TimeGenerated) by LocationDetails_string, Identity, UserPrincipalName, IPAddress
+| join kind=inner (
+    union SigninLogs, AADNonInteractiveUserSignInLogs
+    | where TimeGenerated between ((ago2days_start + 1h) .. (ago2days_start + 5h))
+    | summarize max(TimeGenerated) by LocationDetails_string, Identity, UserPrincipalName, IPAddress
+) on IPAddress, UserPrincipalName
+| join kind=inner (
+    union SigninLogs, AADNonInteractiveUserSignInLogs
+    | where TimeGenerated between ((ago3days_start + 1h) .. (ago3days_start + 5h))
+    | summarize max(TimeGenerated) by LocationDetails_string, Identity, UserPrincipalName, IPAddress
+) on IPAddress, UserPrincipalName;
+union SigninLogs, AADNonInteractiveUserSignInLogs
+    | where TimeGenerated between ((today_start + 1h) .. (today_start + 5h))
+    | summarize max(TimeGenerated) by LocationDetails_string, Identity, UserPrincipalName, IPAddress
+| join kind = leftanti knownIdentities on IPAddress, UserPrincipalName

@@ -1,0 +1,7 @@
+let UPN = "userprincipalnamehere"; 
+let TimeFrame = ago(30d); 
+SigninLogs 
+| where TimeGenerated > TimeFrame
+| where UserPrincipalName =~ UPN
+| summarize FirstSeen = min(TimeGenerated), LastObserved = max(TimeGenerated), SuccessfullCount = count(ResultType = 0), FailureCount = count(ResultType != 0) 
+by UserPrincipalName, IPAddress, Location, tostring(DeviceDetail.deviceId), UserAgent, ClientAppUsed, AppDisplayName

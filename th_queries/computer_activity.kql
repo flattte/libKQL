@@ -1,0 +1,6 @@
+// Logon Activity by Device 
+// Counts logon activities per device. 
+SecurityEvent
+| where EventID == 4624
+| summarize LogonCount = count() by Computer
+

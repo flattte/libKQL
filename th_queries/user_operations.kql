@@ -1,5 +1,5 @@
 let UPName = "userprincipalnamehere"; 
-let TimeFrame = ago(30d); 
+let Time = ago(1d); 
 SigninLogs 
 | where TimeGenerated > TimeFrame
 | where UserPrincipalName =~ UPName

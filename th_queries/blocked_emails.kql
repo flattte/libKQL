@@ -1,0 +1,3 @@
+EmailEvents
+| where DeliveryAction contains "blocked" and ThreatTypes contains "malware" and Timestamp > ago(30d)
+

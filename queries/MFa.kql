@@ -1,0 +1,5 @@
+// ༼ ಢ_ಢ ༽
+SigninLogs
+| extend FR = Status.failureReason
+| where FR == "User did not pass the MFA challenge."
+| project TimeGenerated, IPAddress, Identity, ResultType, FR, AppDisplayName

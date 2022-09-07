@@ -1,0 +1,3 @@
+EmailEvents
+| where RecipientEmailAddress contains "EmailOfTheVictimHere"
+| project SenderIPv4, SenderMailFromAddress, SenderDisplayName, RecipientEmailAddress, Timestamp

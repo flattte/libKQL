@@ -1,7 +1,7 @@
 let UPName = "userprincipalnamehere"; 
 let Time = ago(1d); 
 SigninLogs 
-| where TimeGenerated > TimeFrame
+| where TimeGenerated > Time
 | where UserPrincipalName =~ UPName
 | summarize FSeen = min(TimeGenerated), LSeen = max(TimeGenerated), SuccessCount = count(ResultType = 0), FailCount = count(ResultType != 0) 
 by UserPrincipalName, IPAddress, tostring(DeviceDetail.deviceId), UserAgent, Location

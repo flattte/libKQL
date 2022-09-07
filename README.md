@@ -1,5 +1,12 @@
 # libKQL
 
+##Structure
+
+th_queries: threat hunting
+queries:
+  login: SigninLogs and AADNonInteractiveUserSignInLogs based queries
+  endpoint: Endpoint based queries
+
 ```
 monkaS (ʘ ʖ̯ ʘ)
 ```

@@ -1,18 +1,23 @@
 # libKQL
 
-##Structure
-
-th_queries: threat hunting
-queries:
-  login: SigninLogs and AADNonInteractiveUserSignInLogs based queries
-  endpoint: Endpoint based queries
+KQL queries library used to implement rules.
 
 ```
 monkaS (ʘ ʖ̯ ʘ)
 ```
 
-KQL queries library used to implement rules.
 
+## Structure
+
+th_queries - threat hunting
+
+queries:
+
+ &emsp; login - SigninLogs and AADNonInteractiveUserSignInLogs based queries
+  
+  &emsp; endpoint - Endpoint based queries
+
+## Resources
 
 OG sentinel queries
 - https://github.com/Azure/Azure-Sentinel/tree/master/Detections

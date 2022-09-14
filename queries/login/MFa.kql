@@ -1,6 +1,25 @@
 // ༼ ಢ_ಢ ༽
+let threshold = 3;
 SigninLogs
 | extend S1 = parse_json(AuthenticationDetails)[0]
 | extend S2 = parse_json(AuthenticationDetails)[1]
 | where not(isempty(S2))
-| extend StatusManual = (S1.succeeded != "true" or S2.succeeded != "true")
+| extend StatusS1 = S1.succeeded
+| extend StatusS2 = S2.succeeded
+| where StatusS1 == "true"
+| where StatusS2 == "false"
+| where IPAddress != "194.181.148.134"
+| summarize IdentityCount = count(),
+    make_set(ResourceId),
+    make_set(AuthenticationDetails),
+    make_set(AuthenticationProcessingDetails),
+    make_set(MfaDetail),
+    make_set(IPAddress),
+    make_set(ResourceTenantId),
+    reason = make_set(strcat(ResultType, " - ", ResultDescription)),
+    make_set(DeviceDetail),
+    make_set(LocationDetails)
+    by UserPrincipalName
+| where IdentityCount >= 3
+
+

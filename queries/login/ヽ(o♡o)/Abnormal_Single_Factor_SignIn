@@ -1,0 +1,23 @@
+  // ヽ(o♡o)/ | BETTER Anomolous Single Factor Signin
+  
+  let known_locations = (SigninLogs
+  | where TimeGenerated between(ago(7d)..ago(1d))
+  | where ResultType == 0
+  | extend LocationDetail = strcat(Location, "-", LocationDetails.state)
+  | summarize by LocationDetail);
+  let known_asn = (SigninLogs
+  | where TimeGenerated between(ago(7d)..ago(1d))
+  | where ResultType == 0
+  | summarize by AutonomousSystemNumber);
+  let known_ip = (SigninLogs
+  | where TimeGenerated between(ago(7d)..ago(1d))
+  | where ResultType == 0
+  | extend ip = strcat("ip", "-", IPAddress)
+  | summarize by ip);
+  SigninLogs
+  | where TimeGenerated > ago(1d)
+  | where ResultType == 0
+  | where AuthenticationRequirement == "singleFactorAuthentication"
+  | extend LocationDetail = strcat(Location, "-", LocationDetails.state)
+  | extend DeviceDetails = strcat("Operating system", "-", DeviceDetail.operatingSystem)
+  | where AutonomousSystemNumber !in (known_asn) and LocationDetail !in (known_locations) and IPAddress !in (known_ip)

@@ -4,4 +4,4 @@ let StartAlertTime = startDateOfAlert + 1h;
 let StopAlertTime = startDateOfAlert + 4h;
 union SecurityEvent, SigninLogs, AADNonInteractiveUserSignInLogs
 | where TimeGenerated > StartAlertTime and TimeGenerated < StopAlertTime
-| where UserPrincipalName !contains "msylvain@sailog.io"
+| where UserPrincipalName !contains "EmailHere"

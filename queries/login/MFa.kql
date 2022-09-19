@@ -8,7 +8,6 @@ SigninLogs
 | extend StatusS2 = S2.succeeded
 | where StatusS1 == "true"
 | where StatusS2 == "false"
-| where IPAddress != "194.181.148.134"
 | summarize IdentityCount = count(),
     make_set(ResourceId),
     make_set(AuthenticationDetails),

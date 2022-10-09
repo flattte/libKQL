@@ -1,12 +1,5 @@
 # libKQL
 
-KQL queries library used to implement rules.
-
-```
-monkaS (ʘ ʖ̯ ʘ)
-```
-
-
 ## Structure
 
 th_queries - threat hunting

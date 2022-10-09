@@ -1,6 +1,7 @@
 # libKQL
 
 ## Structure
+inccident_analysis - help to identify incidents
 
 th_queries - threat hunting
 

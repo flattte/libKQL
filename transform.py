@@ -7,8 +7,7 @@ def timestamp_to_time_generated(query):
     if "Timestamp" in query:
         query.replace("Timestamp", "TimeGenerated")
         return
-
-
+    
 if __name__ == "__main__":
     query = """
 

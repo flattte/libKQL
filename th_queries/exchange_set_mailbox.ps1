@@ -1,0 +1,1 @@
+Get-Mailbox -ResultSize Unlimited |% { Get-InboxRule -Mailbox $_.UserPrincipalName | Where {$_.ForwardTo -or $_.ForwardAsAttachmentTo -or $_.RedirectTo} | Select Name,Identity,ForwardTo,ForwardAsAttachmentTo,RedirectTo}

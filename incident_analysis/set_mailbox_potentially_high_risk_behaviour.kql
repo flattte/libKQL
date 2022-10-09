@@ -1,0 +1,7 @@
+  W3CIISLog
+  | where ipv4_is_private(cIP) == false and  cIP !startswith "fe80" and cIP !startswith "::" and cIP !startswith "127."
+  | where csMethod =~ "POST"
+  | where csUriStem has "/ecp"
+  | where isnotempty(csCookie) and csCookie has "SecurityToken"
+  | where csUriQuery has "msExchEcpCanary"
+  | extend timestamp=TimeGenerated, HostCustomEntity=Computer, IPCustomEntity=cIP

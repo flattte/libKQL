@@ -1,15 +1,13 @@
 # libKQL
 
 ## Structure
-`inccident_analysis` - help to identify incidents
+`inccident_analysis/` - help to identify incidents wit predefined queries
+ 
+`th_queries/` - threat hunting queires
 
-`th_queries` - threat hunting
-
-`queries`
-
- &emsp; `login` - SigninLogs and AADNonInteractiveUserSignInLogs based queries
+`queries/login/` - SigninLogs and AADNonInteractiveUserSignInLogs based queries
   
-  &emsp; `endpoint` - endpoint and hardware based queries
+`queries/endpoint/` - endpoint and hardware based queries
 
 ## Resources
 

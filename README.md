@@ -23,6 +23,9 @@
 
 `Article about login failures` - https://gotoguy.blog/2018/11/21/exploring-azure-mfa-sign-in-failures-using-log-analytics/
 
+`Query Style Guide` - https://github.com/Azure/Azure-Sentinel/wiki/Query-Style-Guide
+
+
 ```
 monkaS (ʘ ʖ̯ ʘ)
 ```

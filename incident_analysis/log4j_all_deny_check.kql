@@ -1,6 +1,5 @@
 // QUILCLY INSPECT WHAT WAS DONE TO THE TRAFFIC FROM SPECIFIED ADDRESSESS
 CommonSecurityLog
-| where SourceIP has_any() // paste adressess here must be with ""
-| distinct DeviceAction
-
-
+| where SourceIP has_any("") // paste adressess here must be with ""
+| distinct DeviceAction, SourceIP
+| sort by SourceIP

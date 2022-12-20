@@ -1,0 +1,4 @@
+union SigninLogs, AADNonInteractiveUserSignInLogs 
+| where TimeGenerated >= ago(60d)
+| where UserPrincipalName contains "UPN"
+| summarize cnt=count() by bin(TimeGenerated, 1d)

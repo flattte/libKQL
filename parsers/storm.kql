@@ -1,0 +1,16 @@
+let t = ago(12h); // lookback
+let forwd = ""; // forwarder
+Syslog
+| where TimeGenerated >= ago(t)
+| where Computer contains forwd
+| take 1000
+| extend parsed1 = replace_string(SyslogMessage, '\"', '')
+| extend parsed2 = split(parsed1, " ")
+| project parsed1, parsed2, SyslogMessage, HostName, HostIP
+| mv-apply e = extract_all(@"(\w+)=(([\w\.\:]+))", dynamic([1,2]), parsed1)
+    on (
+        project p = pack(tostring(e[0]), e[1])
+        | summarize b = make_bag(p)
+    )
+| evaluate bag_unpack(b)
+| project-away parsed1, parsed2, SyslogMessage

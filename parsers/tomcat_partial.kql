@@ -1,0 +1,7 @@
+Tomcat_CL
+| where RawData matches regex @'\AINFO|WARN|ERROR|DEBUG\s'
+| extend EventProduct = 'Tomcat'
+| extend EventType = 'CatalinaLog'
+| extend EventSeverity = extract(@'(INFO|ERROR|WARN|DEBUG)', 1, RawData)
+| extend EventMessage = extract(@"\(.*?\)\s*\((.*?)\)", 1, RawData)
+
